@@ -62,6 +62,38 @@ from django.core.serializers import serialize
 register = template.Library()
 import time 
 import re
+import os
+
+def get_wallet_balance(request):
+    solana_rpc_key = os.getenv('SOLANA_RPC_KEY')
+    rpc_url = f"https://weathered-long-wind.solana-mainnet.quiknode.pro/{solana_rpc_key}/"
+
+    wallet_address = request.GET.get('wallet_address', '')
+    # Initialize a Solana RPC client
+    # Define RPC server details
+    
+    # Wallet address for which you want to check the balance
+    wallet_address = wallet_address
+
+    # JSON-RPC request payload to get balance
+    payload = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "getBalance",
+        "params": [wallet_address]
+    }
+
+    # Make the request
+    try:
+        response = requests.post(rpc_url, json=payload)
+        response.raise_for_status()  # Raise an error for bad responses
+        data = response.json()
+        balance = data["result"]["value"]
+        print("Balance:", balance)
+        sol_balance = balance / 10**9        
+        return sol_balance   
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
 
 def extract_number_from_page_source(page_source):
     """

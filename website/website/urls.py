@@ -24,6 +24,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [  
     path('bundlecheckerview/', views.bundlecheckerview, name='bundlecheckerview'),
+    path('get_wallet_balance/', views.get_wallet_balance, name='get_wallet_balance'),    
 ]
 
 
