@@ -60,9 +60,6 @@ LOGOUT_REDIRECT_URL = "/"
 INSTALLED_APPS = [
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'social_django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
