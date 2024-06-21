@@ -93,6 +93,7 @@ def get_wallet_balance(request):
         sol_balance = balance / 10**9    
 
         if sol_balance is not None:
+            sol_balance = round(sol_balance, 2)
             print(f"Number of Bundled Transactions: {sol_balance}")
             return JsonResponse({'number_of_transactions': sol_balance})
         else:
