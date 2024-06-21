@@ -90,8 +90,15 @@ def get_wallet_balance(request):
         data = response.json()
         balance = data["result"]["value"]
         print("Balance:", balance)
-        sol_balance = balance / 10**9        
-        return sol_balance   
+        sol_balance = balance / 10**9    
+
+        if sol_balance is not None:
+            print(f"Number of Bundled Transactions: {sol_balance}")
+            return JsonResponse({'number_of_transactions': sol_balance})
+        else:
+            print("Unable to extract number of bundled transactions.")
+            return JsonResponse({'number_of_transactions': None})
+
     except requests.exceptions.RequestException as e:
         print("Error:", e)
 
