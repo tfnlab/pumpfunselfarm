@@ -24,14 +24,27 @@ APPEND_SLASH = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY =  os.environ.get('D_SECRET_KEY') 
- 
+SECRET_KEY =  os.environ.get('D_SECRET_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('D_SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('D_SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email', 'profile']
 
-SOCIAL_AUTH_PIPELINE = ( 
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+    'access_type': 'offline',
+    'prompt': 'consent',
+}
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
     'store.pipeline.get_email',  # Add the custom function here
     'store.pipeline.associate_by_email',
-    'social_core.pipeline.user.create_user', 
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
     'store.pipeline.user_details',
 )
 
@@ -60,6 +73,9 @@ LOGOUT_REDIRECT_URL = "/"
 INSTALLED_APPS = [
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'social_django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -83,7 +99,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
 
 ]
 
