@@ -129,43 +129,50 @@ def bundlecheckerview(request):
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
-    try:
-        driver = webdriver.Chrome(options=options)
-        
-        driver.get("https://pumpv2.fun/bundleChecker")
-        time.sleep(3)  # Adjust as needed
+    retries = 1
+    number_of_transactions = None
 
-        input_element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Pump Fun Token Address']"))
-        )
-        input_element.click()
-        input_element.clear()
-        input_element.send_keys(ca_address)
-        input_element.submit()
+    while retries >= 0:
+        try:
+            driver = webdriver.Chrome(options=options)
 
-        # Wait for the page to load completely (adjust wait time as needed)
-        time.sleep(12)
+            driver.get("https://pumpv2.fun/bundleChecker")
+            time.sleep(3)  # Adjust as needed
 
-        # Extract the page source after waiting
-        page_source = driver.page_source
+            input_element = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Pump Fun Token Address']"))
+            )
+            input_element.click()
+            input_element.clear()
+            input_element.send_keys(ca_address)
+            input_element.submit()
 
-        # Extract number of transactions
-        number_of_transactions = extract_number_from_page_source(page_source)
+            # Wait for the page to load completely (adjust wait time as needed)
+            time.sleep(12)
 
-        if number_of_transactions is not None:
-            print(f"Number of Bundled Transactions: {number_of_transactions}")
-            return JsonResponse({'number_of_transactions': number_of_transactions})
-        else:
-            print("Unable to extract number of bundled transactions.")
-            return JsonResponse({'number_of_transactions': None})
+            # Extract the page source after waiting
+            page_source = driver.page_source
 
+            # Extract number of transactions
+            number_of_transactions = extract_number_from_page_source(page_source)
 
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+            if number_of_transactions is not None:
+                print(f"Number of Bundled Transactions: {number_of_transactions}")
+                return JsonResponse({'number_of_transactions': number_of_transactions})
+            else:
+                print("Unable to extract number of bundled transactions.")
+                retries -= 1
 
-    finally:
-        if driver is not None:
-            driver.quit()
+        except Exception as e:
+            if retries <= 0:
+                return JsonResponse({'error': str(e)}, status=500)
+            retries -= 1
+
+        finally:
+            if driver is not None:
+                driver.quit()
+    
+    return JsonResponse({'number_of_transactions': None})
 
 
 
