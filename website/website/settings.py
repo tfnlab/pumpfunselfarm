@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store',
+    'corsheaders',
 ]
 
 
@@ -103,6 +104,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    # other middleware
+    'django.middleware.security.SecurityMiddleware',
 
     # Add AccountMiddleware from allauth
     'allauth.account.middleware.AccountMiddleware',
