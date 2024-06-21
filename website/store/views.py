@@ -44,7 +44,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 
-import stripe
 from PIL import Image
 import openai
 import requests
