@@ -49,7 +49,7 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 CORS_ALLOWED_ORIGINS = [
-    'http://pumpfunclub.com',
+    'https://pumpfunclub.com',
     'https://www.pumpfunclub.com',
     # other allowed origins
 ]
