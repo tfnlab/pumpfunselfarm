@@ -133,7 +133,7 @@ def bundlecheckerview(request):
         driver = webdriver.Chrome(options=options)
         
         driver.get("https://pumpv2.fun/bundleChecker")
-        time.sleep(1.5)  # Adjust as needed
+        time.sleep(3)  # Adjust as needed
 
         input_element = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Pump Fun Token Address']"))
@@ -144,7 +144,7 @@ def bundlecheckerview(request):
         input_element.submit()
 
         # Wait for the page to load completely (adjust wait time as needed)
-        time.sleep(7)
+        time.sleep(12)
 
         # Extract the page source after waiting
         page_source = driver.page_source
