@@ -24,7 +24,7 @@ APPEND_SLASH = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY =  os.environ.get('D_SECRET_KEY')
+SECRET_KEY =  'D_SECRET_KEY_TEST'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('D_SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('D_SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email', 'profile']
