@@ -53,7 +53,7 @@ SOCIAL_AUTH_PIPELINE = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['144.202.115.172','www.pumpfunclub.com','pumpfunclub.com','app.homerenovationnation.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['144.202.115.172','sel.pumpfunclub.com','www.pumpfunclub.com','pumpfunclub.com','app.homerenovationnation.com', 'localhost', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['http://144.202.115.172','https://www.pumpfunclub.com','https://pumpfunclub.com','https://app.homerenovationnation.com']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
