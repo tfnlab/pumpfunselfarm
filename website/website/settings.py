@@ -48,7 +48,11 @@ SOCIAL_AUTH_PIPELINE = (
     'store.pipeline.user_details',
 )
 
-
+CORS_ALLOWED_ORIGINS = [
+    'http://pumpfunclub.com',
+    'https://www.pumpfunclub.com',
+    # other allowed origins
+]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
